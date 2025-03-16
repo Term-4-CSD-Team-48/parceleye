@@ -3,4 +3,6 @@
     <string name="logo">App Logo</string>
     <string name="hero_image">PARCELEYE</string>
     <string name="hero_image2">PARCEL TRACKING</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
 </resources>
