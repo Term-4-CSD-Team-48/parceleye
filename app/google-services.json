@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "71560850434",
+    "project_id": "parceleye-4ee45",
+    "storage_bucket": "parceleye-4ee45.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71560850434:android:e500765e2338c443028b1b",
+        "android_client_info": {
+          "package_name": "com.example.parceleyelogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoevZqugo7iWb9rkOIGwafYTfEgQceXPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

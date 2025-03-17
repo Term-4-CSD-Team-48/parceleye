@@ -81,7 +81,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/password"
                 android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/usericon"
+                android:drawableStart="@drawable/lockicon"
                 android:fontFamily="@font/montserrat"
                 android:hint="@string/password"
                 android:drawablePadding="8dp"
