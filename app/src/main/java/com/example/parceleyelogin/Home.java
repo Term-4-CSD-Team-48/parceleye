@@ -1,14 +1,22 @@
 package com.example.parceleyelogin;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
+
+    BottomNavigationView bottomNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +28,39 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        bottomNavView = findViewById(R.id.bottomNavigationView);
+        replaceFragment(new HomeFragment());
+        bottomNavView.setBackground(null);
+
+        bottomNavView.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    replaceFragment(new HomeFragment());
+                    break;
+
+                case R.id.nav_history:
+                    replaceFragment(new HistoryFragment());
+                    break;
+
+                case R.id.nav_recording:
+                    replaceFragment(new RecordingFragment());
+                    break;
+
+                case R.id.nav_profile:
+                    replaceFragment(new ProfileFragment());
+                    break;
+
+            }
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.home_frame, fragment);
+        fragmentTransaction.commit();
     }
 }

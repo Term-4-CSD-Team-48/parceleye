@@ -9,7 +9,10 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +25,10 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     TextView signUp;
+    Button loginButton;
     String signUpText;
+    EditText email;
+    EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         signUp = findViewById(R.id.signUp);
+        loginButton = findViewById(R.id.loginButton);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+
+        // Set login button to be clickable
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent login = new Intent(MainActivity.this, Home.class);
+                String emailIn = email.getText().toString();
+                String passwordIn = password.getText().toString();
+                Log.v("LoginButton", "We are under the login button");
+                Log.v("Email", emailIn);
+                Log.v("Password", passwordIn);
+                if (emailIn.equals("john@email.com") && passwordIn.equals("password123")) {
+                    startActivity(login);
+                } else {
+                    Log.v("LoginButton", "Password/Email wrong");
+                }
+            }
+        });
 
         // Setting custom colour for "Sign Up"
         signUpText = "Don't have an account? Sign Up";
