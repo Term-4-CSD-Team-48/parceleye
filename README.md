@@ -1,2 +1,76 @@
-ParcelEye App<br/>
-16/3/2025 Changes: Implemented login page
+# ParcelEye
+
+ParcelEye is an Android application designed to help users track and manage their parcels efficiently.
+
+## Overview
+
+ParcelEye provides a seamless experience for users to monitor their parcels, view delivery history, and manage their profile. The app features a user-friendly interface with a bottom navigation bar for easy access to different functionalities.
+
+## Features
+
+- **User Authentication**: Secure login and registration system
+- **Home Dashboard**: Quick overview of current parcels and status
+- **Parcel History**: Track past deliveries and their details
+- **Camera Integration**: Scan parcel barcodes or QR codes for quick tracking
+- **Recording**: Document delivery information
+- **User Profile**: Manage personal information and preferences
+
+## Technical Details
+
+- **Platform**: Android
+- **Minimum SDK**: 24 (Android 7.0 Nougat)
+- **Target SDK**: 35
+- **Version**: 1.0
+- **Language**: Java
+- **Architecture**: Fragment-based navigation with Activity hosts
+- **Dependencies**:
+  - AndroidX components
+  - Material Design components
+  - Firebase integration for analytics
+
+## Getting Started
+
+### Prerequisites
+
+- Android Studio
+- JDK 11 or higher
+- Android device or emulator running Android 7.0 (API 24) or higher
+
+### Installation
+
+1. Clone this repository
+2. Open the project in Android Studio
+3. Sync Gradle files
+4. Run the application on your device or emulator
+
+## Project Structure
+
+- **MainActivity**: Handles user authentication (login)
+- **Register**: Manages user registration
+- **Home**: Main activity with bottom navigation to different fragments:
+  - HomeFragment: Dashboard view
+  - HistoryFragment: Past deliveries
+  - RecordingFragment: Document deliveries
+  - ProfileFragment: User settings and information
+  - CameraFragment: Scan parcel codes
+
+## Future Enhancements
+
+- Firebase Authentication implementation
+- Cloud storage for parcel data
+- Push notifications for delivery updates
+- Barcode scanning functionality
+- Maps integration for tracking
+
+## Development Timeline
+
+- 16/3/2025: Implemented login page
+- More updates coming soon...
+
+## Contributors
+
+- Team 48, SUTD 50.001 Course
+
+## License
+
+This project is part of the SUTD 50.001 course requirements.
