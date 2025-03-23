@@ -24,11 +24,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView signUp;
-    Button loginButton;
-    String signUpText;
-    EditText email;
-    EditText password;
+    private TextView signUp;
+    private Button loginButton;
+    private String signUpText;
+    private EditText email;
+    private EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

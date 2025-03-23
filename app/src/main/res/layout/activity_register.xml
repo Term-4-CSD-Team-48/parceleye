@@ -97,6 +97,7 @@
                 android:background="@drawable/roundedrect"
                 android:drawableStart="@drawable/lockicon"
                 android:fontFamily="@font/montserrat"
+                android:id="@+id/password"
                 android:hint="@string/password"
                 android:drawablePadding="8dp"
                 android:padding="8dp"
@@ -108,7 +109,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/password"
+                android:id="@+id/passwordConfirm"
                 android:background="@drawable/roundedrect"
                 android:drawableStart="@drawable/usericon"
                 android:fontFamily="@font/montserrat"
@@ -123,7 +124,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/loginButton"
+                android:id="@+id/signUpButton"
                 android:text="Sign Up"
                 android:textSize="20sp"
                 android:fontFamily="@font/montserrat_bold"
