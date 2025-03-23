@@ -2,6 +2,7 @@ package com.example.parceleyelogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
@@ -75,8 +78,7 @@ public class Register extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent login = new Intent(Register.this, MainActivity.class);
-                startActivity(login);
+                registerUser();
             }
         });
     }
@@ -90,7 +92,47 @@ public class Register extends AppCompatActivity {
         // Validate input fields
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
             Toast.makeText(Register.this, "Please fill in all fields.", Toast.LENGTH_LONG).show();
+            return;
         }
 
+        // Check if passwords are matching
+        if (!password.equals(passwordConfirm)) {
+            Toast.makeText(Register.this, "Passwords do not match!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // Show registration progress
+        Toast.makeText(Register.this, "Registering...", Toast.LENGTH_SHORT).show();
+
+        // Making API call
+        Call<Void> call = apiService.registerUser(username, email, password);
+        call.enqueue(new Callback<Void>() {
+            final private String TAG = "API Call";
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.i(TAG, "Registration Successful");
+                    Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_LONG).show();
+
+                    // Redirect to Login Page
+                    Intent login = new Intent(Register.this, MainActivity.class);
+                    startActivity(login);
+                    finish();
+                } else {
+                    Log.e(TAG, "Registration Error: " + response.code());
+                    if (response.code() == 400) {
+                        Toast.makeText(Register.this, "User already exists.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Register.this, "Registration failed. Please try again later.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "Network error: " + t.getMessage());
+                Toast.makeText(Register.this, "Network error. Please check your connection.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
