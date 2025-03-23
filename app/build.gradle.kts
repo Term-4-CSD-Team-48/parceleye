@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
+    implementation(libs.circleimageview)
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))

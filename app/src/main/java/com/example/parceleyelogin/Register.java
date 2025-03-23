@@ -107,7 +107,6 @@ public class Register extends AppCompatActivity {
         // Making API call
         Call<Void> call = apiService.registerUser(username, email, password);
         call.enqueue(new Callback<Void>() {
-            final private String TAG = "API Call";
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {

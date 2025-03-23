@@ -22,6 +22,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView signUp;
@@ -29,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
     private String signUpText;
     private EditText email;
     private EditText password;
+
+    //TODO: Replace URL with EC2 instance URL
+    private static final String BASE_URL = "http://your-ec2-instance.amazonaws.com/";
+    private static final String TAG = "Login";
+
+    // Define Retrofit API interface
+    public interface ApiService {
+        @FormUrlEncoded
+        @POST("auth/login")
+        Call<Void> login(
+                @Field("email") String email,
+                @Field("password") String password
+        );
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
