@@ -29,8 +29,6 @@ public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
 
-    private ApiClient.Calls calls;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +39,6 @@ public class Register extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        calls = ApiClient.getCalls();
 
         // Initialize registration fills
         usernameFill = findViewById(R.id.username);
@@ -81,32 +77,31 @@ public class Register extends AppCompatActivity {
         // Show registration progress
         Toast.makeText(Register.this, "Registering...", Toast.LENGTH_SHORT).show();
 
-        // Making API call
-        Call<Void> call = calls.registerUser(username, email, password);
-        call.enqueue(new Callback<Void>() {
+        // Making API calls
+        ApiClient.register(email, username, password, new ApiClient.Callbacks() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.i(TAG, "Registration Successful");
-                    Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_LONG).show();
+            public void onResponse(int code) {
+                switch(code) {
+                    case 200:
+                        Log.i(TAG, "Registration Successful");
+                        Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_LONG).show();
 
-                    // Redirect to Login Page
-                    Intent login = new Intent(Register.this, MainActivity.class);
-                    startActivity(login);
-                    finish();
-                } else {
-                    Log.e(TAG, "Registration Error: " + response.code());
-                    if (response.code() == 400) {
+                        // Redirect to Login Page
+                        Intent login = new Intent(Register.this, MainActivity.class);
+                        startActivity(login);
+                        finish();
+                    case 409:
                         Toast.makeText(Register.this, "User already exists.", Toast.LENGTH_LONG).show();
-                    } else {
+                    case 500:
                         Toast.makeText(Register.this, "Registration failed. Please try again later.", Toast.LENGTH_LONG).show();
-                    }
+                    default:
+                        Toast.makeText(Register.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "Registration Error: " + code);
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(TAG, "Network error: " + t.getMessage());
+            public void onFailure(Throwable t) {
                 Toast.makeText(Register.this, "Network error. Please check your connection.", Toast.LENGTH_LONG).show();
             }
         });
