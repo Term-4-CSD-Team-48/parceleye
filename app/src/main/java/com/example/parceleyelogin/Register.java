@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,11 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class Register extends AppCompatActivity {
 
@@ -31,22 +27,9 @@ public class Register extends AppCompatActivity {
     private EditText passwordConfirmFill;
     private Button signUpButton;
 
-    //TODO: Replace URL with EC2 instance URL
-    private static final String BASE_URL = "http://your-ec2-instance.amazonaws.com/";
     private static final String TAG = "Register";
 
-    // Define Retrofit API interface
-    public interface ApiService {
-        @FormUrlEncoded
-        @POST("auth/register")
-        Call<Void> registerUser(
-                @Field("username") String username,
-                @Field("email") String email,
-                @Field("password") String password
-        );
-    }
-
-    private ApiService apiService;
+    private ApiClient.Calls calls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +42,7 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        // Initializing Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        apiService = retrofit.create(ApiService.class);
+        calls = ApiClient.getCalls();
 
         // Initialize registration fills
         usernameFill = findViewById(R.id.username);
@@ -105,10 +82,10 @@ public class Register extends AppCompatActivity {
         Toast.makeText(Register.this, "Registering...", Toast.LENGTH_SHORT).show();
 
         // Making API call
-        Call<Void> call = apiService.registerUser(username, email, password);
+        Call<Void> call = calls.registerUser(username, email, password);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     Log.i(TAG, "Registration Successful");
                     Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_LONG).show();
