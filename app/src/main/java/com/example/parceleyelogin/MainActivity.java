@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
 
     //TODO: Replace URL with EC2 instance URL
-    private static final String BASE_URL = "http://your-ec2-instance.amazonaws.com/";
+    private static final String API_URL = "http://your-ec2-instance.amazonaws.com/";
     private static final String TAG = "Login";
 
     // Define Retrofit API interface
