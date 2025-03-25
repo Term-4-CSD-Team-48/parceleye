@@ -2,7 +2,7 @@ package com.example.parceleyelogin;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Home extends AppCompatActivity {
 
@@ -28,11 +29,10 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        replaceFragment(new HomeFragment());
 
         bottomNavView = findViewById(R.id.bottomNavigationView);
-        replaceFragment(new HomeFragment());
         bottomNavView.setBackground(null);
-
         bottomNavView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
@@ -55,6 +55,16 @@ public class Home extends AppCompatActivity {
             }
             return true;
         });
+
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new CameraFragment());
+                bottomNavView.setSelectedItemId(R.id.fab);
+            }
+        });
+
     }
 
     private void replaceFragment(Fragment fragment) {
