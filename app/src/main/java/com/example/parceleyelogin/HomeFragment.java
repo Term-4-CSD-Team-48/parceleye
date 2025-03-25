@@ -18,3 +18,10 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
+
+/*-- TODO: code for out of delivery, replace text with checker,
+      set all elements to invisible if nothing */
+
+//-- TODO: delivery number checker //
+//-- TODO: call delivery number checker and status//
+//-- TODO: call image thumbnail for delivery location//
