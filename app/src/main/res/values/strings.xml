@@ -12,4 +12,5 @@
     <string name="username">Username</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="watch_the_live_stream">Watch the live stream</string>
 </resources>
