@@ -1,19 +1,445 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-</FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="40sp"
+                android:textColor="@color/aqua"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Current Parcel label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Parcel"
+                android:textSize="20sp"
+                android:textColor="@color/aqua"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginBottom="8dp" />
+
+            <!--            Card background for delivery tracker-->
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/aqua">
+
+                <!-- Delivery tracker container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/aqua"
+                    android:padding="16dp">
+
+
+                    <!--TODO: make this refer to @string-->
+                    <!-- Delivery status text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Out for Delivery!"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@android:color/white" />
+
+                    <!-- Horizontal tracker row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+
+                        <!-- Step 1 icon (default system icon) -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/receipt"
+                            app:tint="@android:color/white" />
+
+                        <!-- Horizontal line -->
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progress_bar"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            app:trackColor="@color/grey"
+                            app:indicatorColor="@color/aqua"
+                            />
+
+                        <!-- Step 2 icon -->
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/factory"
+                            app:tint="@android:color/white" />
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            app:trackColor="@color/grey"
+                            app:indicatorColor="@color/aqua"
+                            />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/truck_shipping"
+                            app:tint="@color/pastelRed" />
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@android:color/white" />
+
+                        <!-- Step 3 icon -->
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/house"
+                            app:tint="@android:color/white" />
+
+                    </LinearLayout>
+
+                    <!-- Tracking number -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SPXSG023456789123"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/white" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/googleg_standard_color_18"
+                            app:tint="@android:color/white"
+                            android:layout_marginLeft="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Other items below... -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other Parcels"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="14sp"
+                android:textColor="@color/dark_grey"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Horizontal scroll container -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <!-- Horizontal list of the 3 recent deliveries -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Parcel 1 item -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/grey">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="bottom"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="@string/delivered"
+                                    android:textColor="@color/dark_grey"
+                                    android:textAppearance="@font/montserrat_bold"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="SPXSG023456789123"
+                                    android:textColor="@color/dark_grey"
+                                    android:textSize="7sp" />
+                            </LinearLayout>
+
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/lazada"
+                                app:shapeAppearanceOverlay="@style/Circular"
+                                />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Parcel 2 item -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/grey">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="bottom"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="@string/delivered"
+                                    android:textColor="@color/dark_grey"
+                                    android:textAppearance="@font/montserrat_bold"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="SPXSG023456789123"
+                                    android:textColor="@color/dark_grey"
+                                    android:textSize="7sp" />
+                            </LinearLayout>
+
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/shopee"
+                                app:shapeAppearanceOverlay="@style/Circular"
+                                />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Parcel 3 item -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/grey">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="bottom"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="@string/pickup"
+                                    android:textColor="@color/dark_grey"
+                                    android:textAppearance="@font/montserrat_bold"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="SPXSG023456789123"
+                                    android:textColor="@color/dark_grey"
+                                    android:textSize="7sp" />
+                            </LinearLayout>
+
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/lazada"
+                                app:shapeAppearanceOverlay="@style/Circular"
+                                />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Parcel 4 item -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/grey">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="bottom"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="@string/pickup"
+                                    android:textColor="@color/dark_grey"
+                                    android:textAppearance="@font/montserrat_bold"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="SPXSG023456789123"
+                                    android:textColor="@color/dark_grey"
+                                    android:textSize="7sp" />
+                            </LinearLayout>
+
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/lazada"
+                                app:shapeAppearanceOverlay="@style/Circular"
+                                />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Delivery Location Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery Location"
+                android:textSize="20sp"
+                android:textColor="@color/aqua"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/grey">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        app:cardCornerRadius="15dp"
+                        app:cardBackgroundColor="@color/aqua"
+                        app:cardElevation="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="SUTD Parcel Stand"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:layout_marginBottom="8dp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/deliveryLocationImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/delivery_location"
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Delivery location map"
+                        android:layout_marginBottom="16dp"/>
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
