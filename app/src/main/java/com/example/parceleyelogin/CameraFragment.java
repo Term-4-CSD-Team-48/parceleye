@@ -39,7 +39,6 @@ public class CameraFragment extends Fragment {
         playerViewModel = new ViewModelProvider(requireActivity()).get(PlayerViewModel.class);
     }
 
-    @OptIn(markerClass = UnstableApi.class)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
