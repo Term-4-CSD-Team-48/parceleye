@@ -29,7 +29,9 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        replaceFragment(new HomeFragment());
+
+        if (savedInstanceState == null)
+            replaceFragment(new HomeFragment());
 
         bottomNavView = findViewById(R.id.bottomNavigationView);
         bottomNavView.setBackground(null);
