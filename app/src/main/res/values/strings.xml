@@ -12,4 +12,5 @@
     <string name="username">Username</string>
     <string name="delivered">Delivered</string>
     <string name="pickup">Picked Up!</string>
+    <string name="watch_the_live_stream">watch the live stream</string>
 </resources>
