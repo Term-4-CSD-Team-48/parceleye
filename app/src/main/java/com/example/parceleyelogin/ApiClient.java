@@ -1,10 +1,6 @@
 package com.example.parceleyelogin;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -19,12 +15,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://192.168.1.4:8080";
+
+    private static final String BASE_URL = "http://18.142.237.177:8080";
     private static final Calls calls = new Retrofit.Builder().baseUrl(BASE_URL).client(new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {
                 @NonNull
@@ -37,6 +35,8 @@ public class ApiClient {
                     if (sessionId.get() != null)
                         requestBuilder.addHeader("Cookie", "JSESSIONID=" + sessionId.get());
 
+                    Log.v(TAG, "JSESSIONID: " + sessionId.get());
+
                     return chain.proceed(requestBuilder.build());
                 }
             })
@@ -44,11 +44,30 @@ public class ApiClient {
     private static final String TAG = "ApiClient";
 
     private static final AtomicReference<String> sessionId = new AtomicReference<>(null);
-    public static void setSessionId(String arg) {
+    private static void setSessionId(String arg) {
         sessionId.set(arg);
     }
 
-    public static interface Calls {
+    public static class PromptRequest {
+        final public float x;
+        final public float y;
+
+        public PromptRequest(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public interface Calls {
+        @POST("ai/observe")
+        Call<Void> observe(
+        );
+
+        @POST("ai/prompt")
+        Call<Void> prompt(
+                @Body PromptRequest promptRequest
+        );
+
         @FormUrlEncoded
         @POST("auth/login")
         Call<Void> login(
@@ -65,24 +84,77 @@ public class ApiClient {
         );
     }
 
-    public static interface Callbacks {
-        void onResponse(int code);
-        void onFailure(Throwable t);
+    public interface CallbackParts {
+        default void onResponse(int code) {};
+        default void onFailure(Throwable t) {}
     }
 
-    public static void register(String email, String username, String password, Callbacks callbacks) {
+    public static class DefaultCallback implements Callback<Void> {
+        private final CallbackParts callbackParts;
+
+        public DefaultCallback(CallbackParts callbackParts) {
+            this.callbackParts = callbackParts;
+        }
+
+        @Override
+        public void onResponse(@NonNull Call<Void> call, @NonNull retrofit2.Response<Void> response) {
+            Log.i(TAG, "Call to " + call.request().url().url().toString() + " returned " + response.code());
+            callbackParts.onResponse(response.code());
+        }
+
+        @Override
+        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            Log.e(TAG, "Network error: " + t.getMessage());
+            callbackParts.onFailure(t);
+        }
+    }
+
+    public static void register(String email, String username, String password, CallbackParts callbackParts) {
         Call<Void> call = calls.registerUser(username, email, password);
-        call.enqueue(new Callback<Void>() {
+        call.enqueue(new DefaultCallback(callbackParts));
+    }
+
+    public static void login(String email, String password, CallbackParts callbackParts) {
+        Call<Void> call = calls.login(email, password);
+        call.enqueue(new DefaultCallback(callbackParts) {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull retrofit2.Response<Void> response) {
-                callbacks.onResponse(response.code());
-            }
+                super.onResponse(call, response);
+                // Extract the 'Set-Cookie' header
+                String setCookieHeader = response.headers().get("Set-Cookie");
 
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Log.e(TAG, "Network error: " + t.getMessage());
-                callbacks.onFailure(t);
+                if (setCookieHeader != null) {
+                    Log.d(TAG, "Set-Cookie Header: " + setCookieHeader);
+
+                    // Extract JSESSIONID from the header
+                    String jsessionId = null;
+                    for (String cookie : response.headers().values("Set-Cookie")) {
+                        if (cookie.startsWith("JSESSIONID")) {
+                            jsessionId = cookie.split(";")[0].split("=")[1].trim(); // Extracts 'JSESSIONID=xxxx'
+                            break;
+                        }
+                    }
+
+                    Log.d(TAG, "Extracted JSESSIONID: " + jsessionId);
+                    if (jsessionId == null) {
+                        callbackParts.onResponse(500);
+                    } else {
+                        setSessionId(jsessionId);
+                        callbackParts.onResponse(200);
+                    }
+                }
             }
         });
+    }
+
+    public static void observe(CallbackParts callbackParts) {
+        Call<Void> call = calls.observe();
+        call.enqueue(new DefaultCallback(callbackParts));
+    }
+
+    public static void prompt(float x, float y, CallbackParts callbackParts) {
+        PromptRequest promptRequest = new PromptRequest(x, y);
+        Call<Void> call = calls.prompt(promptRequest);
+        call.enqueue(new DefaultCallback(callbackParts));
     }
 }

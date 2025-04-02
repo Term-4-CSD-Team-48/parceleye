@@ -9,15 +9,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
@@ -78,7 +73,7 @@ public class Register extends AppCompatActivity {
         Toast.makeText(Register.this, "Registering...", Toast.LENGTH_SHORT).show();
 
         // Making API calls
-        ApiClient.register(email, username, password, new ApiClient.Callbacks() {
+        ApiClient.register(email, username, password, new ApiClient.CallbackParts() {
             @Override
             public void onResponse(int code) {
                 switch(code) {

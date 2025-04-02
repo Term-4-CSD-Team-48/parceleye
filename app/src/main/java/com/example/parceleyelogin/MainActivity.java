@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -21,11 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +62,26 @@ public class MainActivity extends AppCompatActivity {
                 if (emailIn.equals("john@email.com") && passwordIn.equals("password123")) {
                     startActivity(login);
                 } else {
-                    Log.v("LoginButton", "Password/Email wrong");
+                    // Making API calls
+                    ApiClient.login(emailIn, passwordIn, new ApiClient.CallbackParts() {
+                        @Override
+                        public void onResponse(int code) {
+                            switch(code) {
+                                case 200:
+                                    Log.i(TAG, "Login Successful");
+                                    Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                    startActivity(login);
+                                default:
+                                    Toast.makeText(MainActivity.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
+                                    Log.e(TAG, "Login Error: " + code);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                            Toast.makeText(MainActivity.this, "Network error. Please check your connection.", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });

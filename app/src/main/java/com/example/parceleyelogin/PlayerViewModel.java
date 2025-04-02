@@ -21,6 +21,7 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
 import androidx.media3.exoplayer.util.EventLogger;
 
 public class PlayerViewModel extends ViewModel {
+
     public final String TAG = "PlayerViewModel";
     private ExoPlayer exoPlayer;
 
@@ -30,6 +31,14 @@ public class PlayerViewModel extends ViewModel {
             exoPlayer = new ExoPlayer.Builder(context).setMediaSourceFactory(
                     new DefaultMediaSourceFactory(context).setLiveTargetOffsetMs(1000)).build();
 
+            ApiClient.observe(new ApiClient.CallbackParts() {
+                @Override
+                public void onFailure(Throwable t) {
+                    exoPlayer.release();
+                    exoPlayer = null;
+                }
+            });
+
             // Create a data source factory.
             DataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory();
 
@@ -38,7 +47,7 @@ public class PlayerViewModel extends ViewModel {
                     new HlsMediaSource.Factory(dataSourceFactory)
                             .setExtractorFactory(new DefaultHlsExtractorFactory())
                             .setAllowChunklessPreparation(false)
-                            .createMediaSource(MediaItem.fromUri("https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8"));
+                            .createMediaSource(MediaItem.fromUri("http://52.221.193.73:8080/hls/stream.m3u8"));
             exoPlayer.setMediaSource(hlsMediaSource);
             exoPlayer.addAnalyticsListener(new EventLogger());
             exoPlayer.addListener(
