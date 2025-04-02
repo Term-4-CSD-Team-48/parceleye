@@ -14,4 +14,13 @@
     <string name="pickup">Picked Up!</string>
     <string name="watch_the_live_stream">watch the live stream</string>
     <string name="prompt_video">prompt video</string>
+    <string name="pastParcels">Past Parcels</string>
+    <string name="currentParcel">Current Parcel</string>
+    <string name="parcelid1">SPXSG023456789123</string>
+    <string name="parcelid2">SPXID123987654321</string>
+    <string name="parcelid3">SPXTH654321987123</string>
+    <string name="parcelid4">SPXSG564738291045</string>
+    <string name="parcelid5">SPXSG023456789123</string>
+    <string name="lastUpdated">Last Update:</string>
+    <string name="date1">12/3/2025</string>
 </resources>
