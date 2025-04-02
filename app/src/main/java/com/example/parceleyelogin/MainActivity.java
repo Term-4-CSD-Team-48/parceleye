@@ -31,33 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null)
             replaceFragment(new HomeFragment());
-      
-        // Set login button to be clickable
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent login = new Intent(MainActivity.this, Home.class);
-                String emailIn = email.getText().toString();
-                String passwordIn = password.getText().toString();
-                Log.v("LoginButton", "We are under the login button");
-                Log.v("Email", emailIn);
-                Log.v("Password", passwordIn);
-                if (emailIn.equals("john@email.com") && passwordIn.equals("password123")) {
-                    startActivity(login);
-                } else {
-                    // Making API calls
-                    ApiClient.login(emailIn, passwordIn, new ApiClient.CallbackParts() {
-                        @Override
-                        public void onResponse(int code) {
-                            if (code == 200) {
-                                Log.i(TAG, "Login Successful");
-                                Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
-                                startActivity(login);
-                            } else {
-                                Toast.makeText(MainActivity.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
-                                Log.e(TAG, "Login Error: " + code);
-                            }
-                        }
+
         bottomNavView = findViewById(R.id.bottomNavigationView);
         bottomNavView.setBackground(null);
         bottomNavView.setOnItemSelectedListener(item -> {
