@@ -66,14 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     ApiClient.login(emailIn, passwordIn, new ApiClient.CallbackParts() {
                         @Override
                         public void onResponse(int code) {
-                            switch(code) {
-                                case 200:
-                                    Log.i(TAG, "Login Successful");
-                                    Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
-                                    startActivity(login);
-                                default:
-                                    Toast.makeText(MainActivity.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
-                                    Log.e(TAG, "Login Error: " + code);
+                            if (code == 200) {
+                                Log.i(TAG, "Login Successful");
+                                Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                                startActivity(login);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
+                                Log.e(TAG, "Login Error: " + code);
                             }
                         }
 
