@@ -22,7 +22,7 @@ import retrofit2.http.POST;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://18.142.237.177:8080";
+    private static final String BASE_URL = "http://192.168.1.3:8080";
     private static final Calls calls = new Retrofit.Builder().baseUrl(BASE_URL).client(new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {
                 @NonNull
@@ -48,31 +48,22 @@ public class ApiClient {
         sessionId.set(arg);
     }
 
-    public static class PromptRequest {
-        final public float x;
-        final public float y;
-
-        public PromptRequest(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
     public interface Calls {
         @POST("ai/observe")
         Call<Void> observe(
+            @Body ObserveRequest observeRequest
         );
 
         @POST("ai/prompt")
         Call<Void> prompt(
-                @Body PromptRequest promptRequest
+            @Body PromptRequest promptRequest
         );
 
         @FormUrlEncoded
         @POST("auth/login")
         Call<Void> login(
-                @Field("email") String email,
-                @Field("password") String password
+            @Field("email") String email,
+            @Field("password") String password
         );
 
         @POST("auth/logout")
@@ -82,9 +73,9 @@ public class ApiClient {
         @FormUrlEncoded
         @POST("auth/register")
         Call<Void> registerUser(
-                @Field("username") String username,
-                @Field("email") String email,
-                @Field("password") String password
+            @Field("username") String username,
+            @Field("email") String email,
+            @Field("password") String password
         );
     }
 
@@ -145,20 +136,41 @@ public class ApiClient {
                     }
 
                     Log.d(TAG, "Extracted JSESSIONID: " + jsessionId);
-                    if (jsessionId == null) {
-                        callbackParts.onResponse(500);
-                    } else {
+                    if (jsessionId != null)
                         setSessionId(jsessionId);
-                        callbackParts.onResponse(200);
-                    }
                 }
+
+                callbackParts.onResponse(response.code());
             }
         });
     }
 
-    public static void observe(CallbackParts callbackParts) {
-        Call<Void> call = calls.observe();
+    public static class ObserveRequest {
+        final public String token;
+
+        public ObserveRequest(String token) {
+            this.token = token;
+        }
+    }
+
+    /**
+     *
+     * @param token MyFirebaseMessagingService.getToken(context)
+     * @param callbackParts
+     */
+    public static void observe(String token, CallbackParts callbackParts) {
+        Call<Void> call = calls.observe(new ObserveRequest(token));
         call.enqueue(new DefaultCallback(callbackParts));
+    }
+
+    public static class PromptRequest {
+        final public float x;
+        final public float y;
+
+        public PromptRequest(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     public static void prompt(float x, float y, CallbackParts callbackParts) {
