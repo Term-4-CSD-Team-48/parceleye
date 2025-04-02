@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Parcel"
+                android:text="@string/currentParcel"
                 android:textSize="20sp"
                 android:textColor="@color/aqua"
                 android:fontFamily="@font/montserrat_bold"
@@ -135,7 +135,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SPXSG023456789123"
+                            android:text="@string/parcelid1"
                             android:textSize="16sp"
                             android:textColor="@android:color/white" />
                         <ImageView
@@ -208,7 +208,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="SPXSG023456789123"
+                                    android:text="@string/parcelid2"
                                     android:textColor="@color/dark_grey"
                                     android:textSize="7sp" />
                             </LinearLayout>
@@ -261,7 +261,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="SPXSG023456789123"
+                                    android:text="@string/parcelid3"
                                     android:textColor="@color/dark_grey"
                                     android:textSize="7sp" />
                             </LinearLayout>
