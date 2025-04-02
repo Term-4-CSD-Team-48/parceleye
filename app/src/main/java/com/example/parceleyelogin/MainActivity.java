@@ -1,37 +1,22 @@
 package com.example.parceleyelogin;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView signUp;
-    private Button loginButton;
-    private String signUpText;
-    private EditText email;
-    private EditText password;
-
-    private static final String TAG = "Login";
+    BottomNavigationView bottomNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,72 +29,49 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        signUp = findViewById(R.id.signUp);
-        loginButton = findViewById(R.id.loginButton);
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        if (savedInstanceState == null)
+            replaceFragment(new HomeFragment());
 
-        // Set login button to be clickable
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        bottomNavView = findViewById(R.id.bottomNavigationView);
+        bottomNavView.setBackground(null);
+        bottomNavView.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    replaceFragment(new HomeFragment());
+                    break;
+
+                case R.id.nav_history:
+                    replaceFragment(new HistoryFragment());
+                    break;
+
+                case R.id.nav_recording:
+                    replaceFragment(new RecordingFragment());
+                    break;
+
+                case R.id.nav_profile:
+                    replaceFragment(new ProfileFragment());
+                    break;
+
+            }
+            return true;
+        });
+
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent login = new Intent(MainActivity.this, Home.class);
-                String emailIn = email.getText().toString();
-                String passwordIn = password.getText().toString();
-                Log.v("LoginButton", "We are under the login button");
-                Log.v("Email", emailIn);
-                Log.v("Password", passwordIn);
-                if (emailIn.equals("john@email.com") && passwordIn.equals("password123")) {
-                    startActivity(login);
-                } else {
-                    // Making API calls
-                    ApiClient.login(emailIn, passwordIn, new ApiClient.CallbackParts() {
-                        @Override
-                        public void onResponse(int code) {
-                            switch(code) {
-                                case 200:
-                                    Log.i(TAG, "Login Successful");
-                                    Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_LONG).show();
-                                    startActivity(login);
-                                default:
-                                    Toast.makeText(MainActivity.this, "Unknown error occured.", Toast.LENGTH_LONG).show();
-                                    Log.e(TAG, "Login Error: " + code);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t) {
-                            Toast.makeText(MainActivity.this, "Network error. Please check your connection.", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
+            public void onClick(View v) {
+                replaceFragment(new CameraFragment());
+                bottomNavView.setSelectedItemId(R.id.fab);
             }
         });
 
-        // Setting custom colour for "Sign Up"
-        signUpText = "Don't have an account? Sign Up";
-        SpannableString spannableString = new SpannableString(signUpText);
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#FF000000"));
-        spannableString.setSpan(colorSpan, 23, signUpText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
 
-        // Setting Sign Up to be clickable
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent register = new Intent(MainActivity.this, Register.class);
-                startActivity(register);
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setColor(Color.parseColor("#3685cd")); // Keep custom color
-                ds.setUnderlineText(false); // Remove underline
-            }
-        };
-
-        spannableString.setSpan(clickableSpan, 23, signUpText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        signUp.setText(spannableString);
-        signUp.setMovementMethod(LinkMovementMethod.getInstance());
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.home_frame, fragment);
+        fragmentTransaction.commit();
     }
 }

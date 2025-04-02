@@ -1,149 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/green_gradient"
-    android:weightSum="100"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/home_frame"
+        />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/hero_image"
-            android:textColor="@color/aqua"
-            android:textSize="40sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/hero_image2"
-            android:textColor="@color/aqua"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
-        android:background="@color/cardview_light_background"
+        android:id="@+id/bottomAppBar"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="50dp"
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
-            android:padding="24dp"
-            >
+            android:id="@+id/bottomNavigationView"
+            android:layout_marginEnd="20dp"
+            app:labelVisibilityMode="labeled"
+            android:background="@android:color/transparent"
+            app:menu="@menu/navbar"
+            />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/email"
-                android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/usericon"
-                android:fontFamily="@font/montserrat"
-                android:hint="@string/email"
-                android:drawablePadding="8dp"
-                android:padding="8dp"
-                android:layout_marginTop="20dp"
-                android:inputType="textEmailAddress"
-                >
-            </EditText>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/password"
-                android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/lockicon"
-                android:fontFamily="@font/montserrat"
-                android:hint="@string/password"
-                android:drawablePadding="8dp"
-                android:padding="8dp"
-                android:layout_marginTop="20dp"
-                android:inputType="textPassword"
-                >
-            </EditText>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/floatingActionButton"
+        android:background="@color/white"
+        android:contentDescription="@string/watch_the_live_stream"
+        android:src="@drawable/cameraicon"
+        app:layout_anchor="@id/bottomAppBar"
+        app:maxImageSize="40dp"
+        app:tint="@color/white"
+        />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/blue"
-                    android:textColor="@color/blue"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Remember Me"
-                    android:layout_centerVertical="true"
-                    android:scaleX="0.85"
-                    android:scaleY="0.85"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Forgot Password?"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:scaleX="0.85"
-                    android:scaleY="0.85"
-                    />
-
-            </RelativeLayout>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/loginButton"
-                android:text="Login"
-                android:textSize="20sp"
-                android:fontFamily="@font/montserrat_bold"
-                android:backgroundTint="@color/aqua"
-                android:layout_marginTop="5dp"/>
-
-            <TextView
-                android:id="@+id/signUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Don't have an account? Sign Up" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

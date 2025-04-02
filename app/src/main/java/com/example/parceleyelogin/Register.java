@@ -82,7 +82,7 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "Registration successful!", Toast.LENGTH_LONG).show();
 
                         // Redirect to Login Page
-                        Intent login = new Intent(Register.this, MainActivity.class);
+                        Intent login = new Intent(Register.this, Login.class);
                         startActivity(login);
                         finish();
                     case 409:
