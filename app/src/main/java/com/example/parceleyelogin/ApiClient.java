@@ -66,6 +66,10 @@ public class ApiClient {
             @Field("password") String password
         );
 
+        @POST("auth/logout")
+        Call<Void> logout(
+        );
+
         @FormUrlEncoded
         @POST("auth/register")
         Call<Void> registerUser(
@@ -102,6 +106,11 @@ public class ApiClient {
 
     public static void register(String email, String username, String password, CallbackParts callbackParts) {
         Call<Void> call = calls.registerUser(username, email, password);
+        call.enqueue(new DefaultCallback(callbackParts));
+    }
+
+    public static void logout(CallbackParts callbackParts) {
+        Call<Void> call = calls.logout();
         call.enqueue(new DefaultCallback(callbackParts));
     }
 

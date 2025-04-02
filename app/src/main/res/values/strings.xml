@@ -23,4 +23,7 @@
     <string name="parcelid5">SPXSG023456789123</string>
     <string name="lastUpdated">Last Update:</string>
     <string name="date1">12/3/2025</string>
+    <string name="nameProfile">John Williams</string>
+    <string name="userProfile">johnwilliams123</string>
+    <string name="emailProfile">johnwilliams@gmail.com</string>
 </resources>

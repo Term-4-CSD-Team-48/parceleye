@@ -47,8 +47,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginVertical="10dp"
+        android:layout_margin="40dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         android:background="@color/cardview_light_background"
@@ -65,23 +64,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/username"
-                android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/usericon"
-                android:fontFamily="@font/montserrat"
-                android:hint="Username"
-                android:drawablePadding="8dp"
-                android:padding="8dp"
-                android:layout_marginTop="20dp"
-                >
-            </EditText>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:id="@+id/email"
                 android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/emailicon"
+                android:drawableStart="@drawable/usericon"
                 android:fontFamily="@font/montserrat"
                 android:hint="@string/email"
                 android:drawablePadding="8dp"
@@ -94,10 +79,10 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/lockopenicon"
-                android:fontFamily="@font/montserrat"
                 android:id="@+id/password"
+                android:background="@drawable/roundedrect"
+                android:drawableStart="@drawable/lockicon"
+                android:fontFamily="@font/montserrat"
                 android:hint="@string/password"
                 android:drawablePadding="8dp"
                 android:padding="8dp"
@@ -106,30 +91,55 @@
                 >
             </EditText>
 
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/passwordConfirm"
-                android:background="@drawable/roundedrect"
-                android:drawableStart="@drawable/lockclosedicon"
-                android:fontFamily="@font/montserrat"
-                android:hint="Confirm Password"
-                android:drawablePadding="8dp"
-                android:padding="8dp"
-                android:layout_marginTop="20dp"
-                android:inputType="textPassword"
+                android:layout_height="wrap_content"
                 >
-            </EditText>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/blue"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Remember Me"
+                    android:layout_centerVertical="true"
+                    android:scaleX="0.85"
+                    android:scaleY="0.85"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Forgot Password?"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleX="0.85"
+                    android:scaleY="0.85"
+                    />
+
+            </RelativeLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/signUpButton"
-                android:text="Sign Up"
+                android:id="@+id/loginButton"
+                android:text="Login"
                 android:textSize="20sp"
                 android:fontFamily="@font/montserrat_bold"
                 android:backgroundTint="@color/aqua"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/signUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Don't have an account? Sign Up" />
 
         </LinearLayout>
 
