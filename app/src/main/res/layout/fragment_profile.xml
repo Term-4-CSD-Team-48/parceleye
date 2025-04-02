@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/green_gradient"
     tools:context=".ProfileFragment">
     
@@ -11,37 +12,40 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="16dp"
+            android:orientation="horizontal"
             android:id="@+id/relativeProfile">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="115dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Account Settings"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
+                android:textColor="@color/aqua"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/logout"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/montserrat"
-                android:layout_alignParentEnd="true"
                 android:text="Logout"
+                android:textSize="12sp"
                 android:textColor="@color/red"
-                android:textSize="15sp"
+                android:background="@android:color/transparent"
                 />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/aqua"
+            android:background="@color/black"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             />
@@ -54,16 +58,17 @@
             android:orientation="vertical"
             >
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/usericon"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:shapeAppearanceOverlay="@style/Circular"
+                android:src="@drawable/kurttay"
                 />
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Williams"
+                android:text="@string/nameProfile"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -75,7 +80,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/aqua"
+            android:background="@color/black"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
@@ -99,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
@@ -108,9 +113,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="johnwilliams123"
+                android:text="@string/userProfile"
                 android:layout_marginLeft="25dp"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="@android:color/darker_gray"
                 />
 
@@ -118,7 +123,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="25dp"
@@ -142,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
@@ -151,9 +156,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="johnwilliams@gmail.com"
-                android:layout_marginLeft="68dp"
-                android:textSize="18sp"
+                android:text="@string/emailProfile"
+                android:layout_marginLeft="60dp"
+                android:textSize="15sp"
                 android:textColor="@android:color/darker_gray"
                 />
 
@@ -161,7 +166,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="25dp"
