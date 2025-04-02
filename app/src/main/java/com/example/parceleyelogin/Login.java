@@ -1,6 +1,7 @@
 package com.example.parceleyelogin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -12,6 +13,8 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +33,9 @@ public class Login extends AppCompatActivity {
     private String signUpText;
     private EditText email;
     private EditText password;
+    private CheckBox checkbox;
+    private SharedPreferences preferences;
+    private String user;
 
     private static final String TAG = "Login";
 
@@ -48,6 +54,33 @@ public class Login extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        checkbox = findViewById(R.id.checkbox);
+
+        preferences = getSharedPreferences("user", MODE_PRIVATE);
+        user = preferences.getString("Remember", "");
+        if (user.equals("True")) {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        // Remember Me function
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    preferences = getSharedPreferences("user", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("Remember", "True");
+                    editor.apply();
+
+                } else if (!buttonView.isChecked()) {
+                    preferences = getSharedPreferences("user", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("Remember", "False");
+                    editor.apply();
+                }
+            }
+        });
 
         // Set login button to be clickable
         loginButton.setOnClickListener(new View.OnClickListener() {

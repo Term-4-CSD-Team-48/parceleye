@@ -99,6 +99,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/checkbox"
                     android:buttonTint="@color/blue"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/montserrat"
