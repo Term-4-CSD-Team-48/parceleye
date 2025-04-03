@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.circleimageview)
 
+    implementation(libs.core.splashscreen)
+
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
 

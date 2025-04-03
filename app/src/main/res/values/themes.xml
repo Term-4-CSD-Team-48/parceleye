@@ -7,4 +7,10 @@
     </style>
 
     <style name="Theme.ParcelEyeLogin" parent="Base.Theme.ParcelEyeLogin" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo2_01</item>
+        <item name="postSplashScreenTheme">@style/Theme.ParcelEyeLogin</item>
+    </style>
 </resources>
