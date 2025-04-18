@@ -22,7 +22,7 @@ import retrofit2.http.POST;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://192.168.1.3:8080";
+    private static final String BASE_URL = "http://52.77.250.21:8080";
     private static final Calls calls = new Retrofit.Builder().baseUrl(BASE_URL).client(new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {
                 @NonNull
@@ -43,7 +43,7 @@ public class ApiClient {
             .build()).addConverterFactory(GsonConverterFactory.create()).build().create(Calls.class);
     private static final String TAG = "ApiClient";
 
-    private static final AtomicReference<String> sessionId = new AtomicReference<>(null);
+    public static final AtomicReference<String> sessionId = new AtomicReference<>(null);
     private static void setSessionId(String arg) {
         sessionId.set(arg);
     }
@@ -156,7 +156,7 @@ public class ApiClient {
     /**
      *
      * @param token MyFirebaseMessagingService.getToken(context)
-     * @param callbackParts
+     * @param callbackParts new ApiClient.CallbackParts() {}
      */
     public static void observe(String token, CallbackParts callbackParts) {
         Call<Void> call = calls.observe(new ObserveRequest(token));
@@ -173,6 +173,13 @@ public class ApiClient {
         }
     }
 
+    /**
+     * Track the parcel located at the given coordinates
+     * @param x x coordinate. 0 at top left, width at bottom right
+     * @param y y coordinate. 0 at top left, height at bottom right
+     * @param callbackParts Implementation of ApiClient.CallbackParts which has the methods
+     *                      onResponse and onFailure
+     */
     public static void prompt(float x, float y, CallbackParts callbackParts) {
         PromptRequest promptRequest = new PromptRequest(x, y);
         Call<Void> call = calls.prompt(promptRequest);
