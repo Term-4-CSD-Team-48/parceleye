@@ -24,7 +24,6 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
 import androidx.media3.exoplayer.util.EventLogger;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Cookie;
