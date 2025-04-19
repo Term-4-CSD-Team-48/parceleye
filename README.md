@@ -11,7 +11,7 @@ ParcelEye provides a seamless experience for users to monitor their parcels, vie
 - **User Authentication**: Secure login and registration system
 - **Home Dashboard**: Quick overview of current parcels and status
 - **Parcel History**: Track past deliveries and their details
-- **Camera Integration**: Scan parcel barcodes or QR codes for quick tracking
+- **Camera Integration**: Live parcel tracking with push notifications
 - **Recording**: Document delivery information
 - **User Profile**: Manage personal information and preferences
 
@@ -52,24 +52,13 @@ ParcelEye provides a seamless experience for users to monitor their parcels, vie
   - HistoryFragment: Past deliveries
   - RecordingFragment: Document deliveries
   - ProfileFragment: User settings and information
-  - CameraFragment: Scan parcel codes
+  - CameraFragment: Live parcel tracking
 
 ## Future Enhancements
 
-- Firebase Authentication implementation
 - Cloud storage for parcel data
-- Push notifications for delivery updates
 - Barcode scanning functionality
 - Maps integration for tracking
-
-## Development Timeline
-
-- 16/3/2025: Implemented login page
-- More updates coming soon...
-
-## Contributors
-
-- Team 48, SUTD 50.001 Course
 
 ## License
 
