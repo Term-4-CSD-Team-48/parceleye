@@ -43,6 +43,14 @@ ParcelEye provides a seamless experience for users to monitor their parcels, vie
 3. Sync Gradle files
 4. Run the application on your device or emulator
 
+### Interacting with API and AI
+Modify ApiClient.BASE_URL and line 93 of PlayerViewModel as needed.
+
+If both API (any port, 8000 as example) and AI (8080 always) are on same network at 192.168.1.2 then
+
+private static final String BASE_URL = "http://192.168.1.2:8000";
+.createMediaSource(MediaItem.fromUri("http://192.168.1.2:8080/hls/stream.m3u8"));
+
 ## Project Structure
 
 - **MainActivity**: Handles user authentication (login)
