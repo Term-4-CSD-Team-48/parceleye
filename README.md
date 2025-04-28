@@ -46,9 +46,9 @@ ParcelEye provides a seamless experience for users to monitor their parcels, vie
 ### Interacting with API and AI
 Modify ApiClient.BASE_URL and line 93 of PlayerViewModel as needed.
 
-If both API (any port, 8000 as example) and AI (8080 always) are on same network at 192.168.1.2 then
+If both API (any port, 80 as example) and AI (8080 always) are on same machine in the same network at 192.168.1.2 then
 
-private static final String BASE_URL = "http://192.168.1.2:8000";
+private static final String BASE_URL = "http://192.168.1.2:80";
 .createMediaSource(MediaItem.fromUri("http://192.168.1.2:8080/hls/stream.m3u8"));
 
 ## Project Structure
